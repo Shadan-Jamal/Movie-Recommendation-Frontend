@@ -1,9 +1,37 @@
 import { motion } from "motion/react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function Input() {
     const [selectedInput, setSelectedInput] = useState("");
-    console.log(selectedInput)
+    const [input,setInput] = useState("");
+    
+    
+    const findRecommendations = async (searchType: string) => {
+        try {
+            console.log("Fetching")
+            const endpoint = searchType === "description" ? "http://localhost:3000/description" : "/";
+            const plot = input
+            const result = await fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({plot})
+            });
+            console.log(result)
+            const data = await result.json();
+
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (selectedInput) {
+            findRecommendations(selectedInput);
+        }
+    };
+
   return (
     <div className="w-full min-h-[3em] max-h-[15em] flex justify-center border border-white">
         <div className="min-w-3/5 h-auto flex flex-col justify-center gap-3">
@@ -36,15 +64,17 @@ export default function Input() {
                 </motion.h2>
             </div>
 
-            <form action="" className="flex flex-row gap-5 justify-center w-full h-fit">
+            <form action="" className="flex flex-row gap-5 justify-center w-full h-fit" onSubmit={handleSubmit}>
                 
                 <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 disabled={selectedInput === ""}
                 placeholder={`${selectedInput === "" ? "Select an option from above" : "Enter"}`} 
                 className="border border-white rounded-lg text-lg text-white w-full text px-5 py-2" />
 
                 <button 
-                type="submit" 
+                type="submit"
                 className="text-white hover:font-bold hover:cursor-pointer hover:bg-zinc-400/50 rounded-xl px-2 text-ce">
                     Find
                 </button>
