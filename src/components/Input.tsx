@@ -1,38 +1,23 @@
 import { motion } from "motion/react"
-import { useState, useEffect } from "react"
+import { useAppDispatch } from "../app/hooks";
+import { changeText,changeTextType } from "../app/features/inputs/inputSlice";
+import { useState } from "react";
 
 export default function Input() {
-    const [selectedInput, setSelectedInput] = useState("");
-    const [input,setInput] = useState("");
-    
-    
-    const findRecommendations = async (searchType: string) => {
-        try {
-            console.log("Fetching")
-            const endpoint = searchType === "description" ? "http://localhost:3000/description" : "/";
-            const plot = input
-            const result = await fetch(endpoint, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({plot})
-            });
-            console.log(result)
-            const data = await result.json();
+    const[input, setInput] = useState("");
+    const[selected, setSelected] = useState("")
 
-            console.log(data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
+    const dispatch = useAppDispatch();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (selectedInput) {
-            findRecommendations(selectedInput);
+        if (selected) {
+            dispatch(changeText(input))
+            dispatch(changeTextType(selected))
         }
     };
 
-  return (
+    return (
     <div className="w-full min-h-[3em] max-h-[15em] flex justify-center border border-white">
         <div className="min-w-3/5 h-auto flex flex-col justify-center gap-3">
             <div className="w-full mx-5 flex justify-center py-5 gap-10">
@@ -41,11 +26,11 @@ export default function Input() {
                 whileTap={{scale : 1.2}}
                 initial={{backgroundColor : "transparent", color : "white"}}
 
-                animate={{backgroundColor : `${selectedInput === "emotion" ? "white":"transparent"}`, 
-                color : `${selectedInput === "emotion" ? "black":"white"}`}}
+                animate={{backgroundColor : `${selected === "emotion" ? "white":"transparent"}`, 
+                color : `${selected === "emotion" ? "black":"white"}`}}
                 
                 transition={{delay : 0.2, ease : "backInOut"}}
-                onClick={() => setSelectedInput("emotion")}
+                onClick={() => setSelected("emotion")}
                 className="text-white text-xl hover:cursor-pointer p-2 rounded-lg">
                     Emotion
                 </motion.h2>
@@ -54,11 +39,11 @@ export default function Input() {
                 whileTap={{scale : 1.2}}
                 initial={{backgroundColor : "transparent", color : "white"}}
 
-                animate={{backgroundColor : `${selectedInput === "description" ? "white":"transparent"}`, 
-                color : `${selectedInput === "description" ? "black":"white"}`}}
+                animate={{backgroundColor : `${selected === "description" ? "white":"transparent"}`, 
+                color : `${selected === "description" ? "black":"white"}`}}
 
                 transition={{delay : 0.2, ease : "backInOut"}} 
-                onClick={() => setSelectedInput("description")}
+                onClick={() => setSelected("description")}
                 className="text-white text-xl hover:cursor-pointer p-2 rounded-lg">
                     Description
                 </motion.h2>
@@ -69,8 +54,8 @@ export default function Input() {
                 <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                disabled={selectedInput === ""}
-                placeholder={`${selectedInput === "" ? "Select an option from above" : "Enter"}`} 
+                disabled={selected === ""}
+                placeholder={`${selected === "" ? selected : "Enter"}`} 
                 className="border border-white rounded-lg text-lg text-white w-full text px-5 py-2" />
 
                 <button 
