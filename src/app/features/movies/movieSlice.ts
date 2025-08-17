@@ -1,24 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
-type Movies = Array<{
+
+type Movies = {
     id : number | null,
     score : number | null,
-    metadata : any,
-}>
+    metadata : Object,
+}[]
 
 const initialState : Movies = [{
     id : null,
     score : null,
-    metadata : [{}]
+    metadata : {}
 }]
 
 const movieSlice = createSlice({
     name : "movie",
     initialState : initialState,
     reducers : {
-        createMovies : (state, action : PayloadAction<Array<Object>>) => {
-            state = action.payload
+        createMovies : (state, action) => {
+            const obj = action.payload
+            return obj
         }
     }
 })

@@ -1,7 +1,42 @@
-export default function MovieCard() {
+import type { MovieType } from "./MovieCardSection"
+
+export default function MovieCard(movie : MovieType) {
+  
   return (
-    <div>
-        <h1 className="text-3xl text-white">Movies</h1>
+    <div className="max-w-[20em] min-h-[20em] max-h-[30em] bg-zinc-700 rounded-lg py-1 px-2 flex flex-col justify-around items-center">
+        <div className="w-full h-fit px-5 flex flex-col items-center justify-center">
+          <h1 className="font-bold text-white text-xl">
+            {movie.title}
+          </h1>
+          <span className="font-bold text-white text-xl">
+            {movie.release_date.slice(0, movie.release_date.indexOf('-'))}
+          </span>
+        </div>
+        
+        <div className="w-full flex justify-between items-center">
+          <div className="flex justify-center gap-2">
+            {movie.genres.map((genre,idx) => {
+              return <h4 id={`${idx}`} className="text-xs text-white">{genre}</h4>
+            })}
+          </div>
+          <div>
+            <span className="text-white text-xs">
+              {movie.runtime}
+            </span>
+          </div>
+        </div>
+
+        <div className="w-full h-3/5 bg-amber-300 rounded-sm overflow-ellipsis">
+          <h1 className="text-wrap">{movie.poster_path}</h1>
+        </div>
+
+        <div className="w-full flex justify-end">
+          <div>
+            <span className="text-xs">
+              Link to imdb page
+            </span>
+          </div>
+        </div>
     </div>
   )
 }

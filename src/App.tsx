@@ -4,7 +4,7 @@ import MovieCardSection from "./components/MovieCardSection.tsx"
 
 export default function App() {
   return (
-    <div className="w-[100dvw] h-screen bg-zinc-800 flex flex-col gap-10">
+    <div className="w-[100dvw] min-h-screen h-auto bg-zinc-800 flex flex-col items-center overflow-x-hidden gap-3">
       <HeroHeader />
       <Input />
       <MovieCardSection />

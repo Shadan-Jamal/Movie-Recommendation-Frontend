@@ -20,7 +20,8 @@ export default function Input() {
     return (
     <div className="w-full min-h-[3em] max-h-[15em] flex justify-center border border-white">
         <div className="min-w-3/5 h-auto flex flex-col justify-center gap-3">
-            <div className="w-full mx-5 flex justify-center py-5 gap-10">
+
+            <div className="w-full mx-5 flex justify-center py-3 gap-10">
 
                 <motion.h2
                 whileTap={{scale : 1.2}}
@@ -49,14 +50,15 @@ export default function Input() {
                 </motion.h2>
             </div>
 
+            
             <form action="" className="flex flex-row gap-5 justify-center w-full h-fit" onSubmit={handleSubmit}>
                 
                 <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 disabled={selected === ""}
-                placeholder={`${selected === "" ? selected : "Enter"}`} 
-                className="border border-white rounded-lg text-lg text-white w-full text px-5 py-2" />
+                placeholder={`${selected === "" ? "Choose an option from above" : "Enter"}`} 
+                className={`border border-white rounded-lg text-lg text-white w-full text px-5 py-2 ${selected === "" && "cursor-not-allowed"}`} />
 
                 <button 
                 type="submit"
