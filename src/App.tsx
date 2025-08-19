@@ -1,6 +1,6 @@
-import HeroHeader from "./components/HeroHeader.tsx"
-import Input from "./components/Input.tsx"
-import MovieCardSection from "./components/MovieCardSection.tsx"
+import HeroHeader from "./app_components/HeroHeader.tsx"
+import Input from "./app_components/Input.tsx"
+import MovieCardSection from "./app_components/MovieCardSection.tsx"
 
 export default function App() {
   return (

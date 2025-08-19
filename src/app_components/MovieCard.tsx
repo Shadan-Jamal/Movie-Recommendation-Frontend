@@ -1,9 +1,22 @@
-import type { MovieType } from "./MovieCardSection"
+import type { Movie } from "@/types/movies_types"
+import {motion} from "motion/react"
 
-export default function MovieCard(movie : MovieType) {
+export default function MovieCard(props : Movie & {idx? : number | undefined}) {
+  const {idx , ...movie} = props
   
+  const calculateDelay = (idx : number | undefined) => {
+    if(idx){
+      return (0.1 * idx);
+    }
+  }
+
   return (
-    <div className="max-w-[20em] min-h-[20em] max-h-[30em] bg-zinc-700 rounded-lg py-1 px-2 flex flex-col justify-around items-center">
+    <motion.div 
+    whileHover={{scale : 1.1}}
+    initial={{scale : 0}}
+    animate={{scale : 1}}
+    transition={{delay : calculateDelay(idx), }}
+    className={`max-w-[20em] min-h-[20em] max-h-[30em] bg-zinc-700 rounded-lg py-1 px-2 flex flex-col justify-around items-center`}>
         <div className="w-full h-fit px-5 flex flex-col items-center justify-center">
           <h1 className="font-bold text-white text-xl">
             {movie.title}
@@ -37,6 +50,6 @@ export default function MovieCard(movie : MovieType) {
             </span>
           </div>
         </div>
-    </div>
+    </motion.div>
   )
 }
