@@ -12,14 +12,14 @@ export default function MovieCardSection() {
   const [moviesData, setMoviesData] = useState<Movies>([]);
   // if no movies are available for the selected filter
   const [noMoviesFound, setNoMoviesFound] = useState(false)
-  
+  const [imageUrl, setImageUrl] = useState("")
   const [fetching, setFetching] = useState(false);
-  const [filters, setFilters] = useState({ genre: "", year: "" });
+  const [filters, setFilters] = useState({ genre: "", year: "", title : ""});
 
   const { text, textType } = useAppSelector((state) => state.input);
   const movies = useAppSelector((state) => state.movies);
   const dispatch = useAppDispatch();
-
+  console.log(movies)
   //1. Fetching the movies
   useEffect(() => {
     const fetchMovies = async () => {
@@ -39,7 +39,7 @@ export default function MovieCardSection() {
           const data = await result.json();
           dispatch(createMovies(data)); //saving movies to redux store
           setMoviesData(data); //saving movies to local state
-          setFilters({genre : "", year : ""})
+          setFilters({genre : "", year : "", title : ""})
         }
         setMoviesData([])
       } catch (err) {
@@ -52,9 +52,9 @@ export default function MovieCardSection() {
     fetchMovies();
   }, [text]);
 
-  //2 & 3. Filtering based on filters state (genre and year)
+  //2 & 3. Filtering based on filters state (genre, year, title)
   useEffect(() => {
-    const { genre, year } = filters;
+    const { genre, year, title } = filters;
 
     let filteredMovies: Movies = movies;
 
@@ -104,6 +104,13 @@ export default function MovieCardSection() {
       console.log(filteredMovies)
     }
 
+    //Filter by title
+    if(title){
+      filteredMovies = filteredMovies.filter((movie) => (
+        movie.title.trim().toLowerCase().includes(title.trim().toLowerCase())
+      ))
+    }
+
     setMoviesData(filteredMovies);
 
     // If no movies after all filters, set appropriate message
@@ -114,20 +121,33 @@ export default function MovieCardSection() {
     }
   }, [filters, movies]);
 
+  // useEffect(() => {
+  //   const getImage = async () => {
+  //     const img = await fetch(`http://img.omdbapi.com/?apikey=${config.omdb_api}&i=tt0468569`)
+  //     const blob = await img.blob()
+  //     setImageUrl(URL.createObjectURL(blob));
+  //     // console.log(data)
+  //   }
+
+  //   getImage()
+  // },[text])
 
   return (
     <div className="max-w-[100dvw] flex flex-col justify-center items-center gap-5 ">
       <h1 className="text-3xl text-white">Movies</h1>
       <div>
         {text.length > 0 && (
-          <FilterOptions setFilters={setFilters} filters={filters} />
+          <FilterOptions 
+          filters={filters} 
+          setFilters={setFilters} 
+          />
         )}
       </div>
-      <div className="grid place-content-center grid-cols-4 grid-flow-dense gap-2 mx-5">
+      <div className="grid place-content-center grid-cols-4 grid-flow-dense gap-10">
         {!fetching ? (
           (!noMoviesFound) ? (
             moviesData.map((movie, idx) => {
-              return <MovieCard key={idx} {...movie} idx={idx} />;
+              return <MovieCard key={idx} {...movie} idx={idx} imageUrl={imageUrl}/>;
             })
           ) : (text && <motion.div
               initial={{ scale: 0 }}
@@ -138,9 +158,11 @@ export default function MovieCardSection() {
               </h1>
             </motion.div>
             )
-        ) : (
+        ) : 
+        (
           <Loading />
-        )}
+        )
+        }
       </div>
     </div>
   );

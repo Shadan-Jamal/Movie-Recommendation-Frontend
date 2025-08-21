@@ -1,8 +1,8 @@
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 const Loading = () => {
   return (
-    <>
+    <div className="w-screen h-fit flex justify-center items-center gap-2">
         <motion.div
           initial={{ y: 0 }}
           animate={{ y: [0, -10, 0] }}
@@ -38,7 +38,7 @@ const Loading = () => {
           }}
           className="w-[20px] h-[20px] border-2 rounded-full"
         />
-    </>
+    </div>
   )
 }
 

@@ -7,6 +7,7 @@ export type Movie = {
     release_date : string,
     runtime : number,
     title : string,
+    imdbId : string,
 }
 export type Movies = Movie[]
 

@@ -5,6 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Input } from "@/components/ui/input";
+
 
 const genres: string[] = [
   "All",
@@ -18,10 +20,15 @@ const genres: string[] = [
   "Fantasy",
   "Foreign",
   "History",
+  "Horror",
+  "Music",
   "Mystery",
   "Romance",
   "Science Fiction",
-  "Thriller"
+  "Thriller",
+  "TV Movie",
+  "War",
+  "Western"
 ];
 const years : string[] = ["All",
   "2016-2017",
@@ -36,11 +43,13 @@ type FilterOptionsProps = {
   setFilters : React.Dispatch<React.SetStateAction<{
       genre: string;
       year: string;
+      title : string;
     }>>,
   filters : {
     genre: string;
     year: string;
-  }
+    title : string;
+  },
 }
 
 export default function FilterOptions({setFilters, filters} : FilterOptionsProps) {
@@ -53,6 +62,9 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
     setFilters({...filters, year :e});
   }
 
+  const handleTitle = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setFilters({...filters, title : e.target.value})
+  }
   return (
     <div className="w-full h-fit flex justify-center items-center gap-3">
         <div id="genres">
@@ -90,6 +102,13 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
                   })}
                 </SelectContent>
             </Select>
+        </div>
+        <div id="title">
+          <Input 
+          className="text-white"
+          placeholder="Title includes..." 
+          value={filters.title} 
+          onChange={(e) => handleTitle(e)}/>
         </div>
     </div>
   )
