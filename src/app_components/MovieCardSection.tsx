@@ -12,7 +12,6 @@ export default function MovieCardSection() {
   const [moviesData, setMoviesData] = useState<Movies>([]);
   // if no movies are available for the selected filter
   const [noMoviesFound, setNoMoviesFound] = useState(false)
-  const [imageUrl, setImageUrl] = useState("")
   const [fetching, setFetching] = useState(false);
   const [filters, setFilters] = useState({ genre: "", year: "", title : ""});
 
@@ -147,7 +146,7 @@ export default function MovieCardSection() {
         {!fetching ? (
           (!noMoviesFound) ? (
             moviesData.map((movie, idx) => {
-              return <MovieCard key={idx} {...movie} idx={idx} imageUrl={imageUrl}/>;
+              return <MovieCard key={idx} {...movie} idx={idx} />;
             })
           ) : (text && <motion.div
               initial={{ scale: 0 }}

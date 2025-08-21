@@ -1,8 +1,8 @@
 import type { Movie } from "@/types/movies_types"
 import {motion} from "motion/react"
 
-export default function MovieCard(props : Movie & {idx? : number | undefined, imageUrl?: string | undefined}) {
-  const {imageUrl, idx , ...movie} = props
+export default function MovieCard(props : Movie & {idx? : number | undefined}) {
+  const {idx , ...movie} = props
   
   const calculateDelay = (idx : number | undefined) => {
     if(idx){
@@ -40,7 +40,7 @@ export default function MovieCard(props : Movie & {idx? : number | undefined, im
         </div>
 
         <div className="w-full h-3/5 rounded-sm overflow-ellipsis">
-          <img src={`${imageUrl}`} alt="" />
+          
         </div>
 
         <div className="w-full flex justify-end">

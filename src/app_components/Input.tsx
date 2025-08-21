@@ -17,6 +17,11 @@ export default function Input() {
         }
     };
 
+    const handleSelection = (text : string) => {
+        setSelected(text)
+        setInput("")
+    }
+
     return (
     <div className="w-full min-h-[3em] max-h-[15em] flex justify-center border border-white">
         <div className="min-w-3/5 h-auto flex flex-col justify-center gap-3">
@@ -31,7 +36,7 @@ export default function Input() {
                 color : `${selected === "emotion" ? "black":"white"}`}}
                 
                 transition={{delay : 0.2, ease : "backInOut"}}
-                onClick={() => setSelected("emotion")}
+                onClick={() => handleSelection("emotion")}
                 className="text-white text-xl hover:cursor-pointer p-2 rounded-lg">
                     Emotion
                 </motion.h2>
@@ -44,7 +49,7 @@ export default function Input() {
                 color : `${selected === "description" ? "black":"white"}`}}
 
                 transition={{delay : 0.2, ease : "backInOut"}} 
-                onClick={() => setSelected("description")}
+                onClick={() => handleSelection("description")}
                 className="text-white text-xl hover:cursor-pointer p-2 rounded-lg">
                     Description
                 </motion.h2>
