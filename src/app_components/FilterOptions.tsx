@@ -6,9 +6,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input";
+import { motion } from "motion/react";
 
-
-const genres: string[] = [
+const allGenres: string[] = [
   "All",
   "Action",
   "Adventure",
@@ -30,7 +30,9 @@ const genres: string[] = [
   "War",
   "Western"
 ];
-const years : string[] = ["All",
+
+const years : string[] = [
+  "All",
   "2016-2017",
   "2011-2015",
   "2001-2010",
@@ -39,16 +41,27 @@ const years : string[] = ["All",
   "Before 1990"
 ]
 
+const showOnly : string[] = [
+  "5",
+  "10",
+  "15",
+  "25",
+  "35",
+  "40"
+]
+
 type FilterOptionsProps = {
   setFilters : React.Dispatch<React.SetStateAction<{
       genre: string;
       year: string;
       title : string;
+      showOnly : string;
     }>>,
   filters : {
     genre: string;
     year: string;
     title : string;
+    showOnly : string;
   },
 }
 
@@ -65,51 +78,101 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
   const handleTitle = (e : React.ChangeEvent<HTMLInputElement>) => {
     setFilters({...filters, title : e.target.value})
   }
+
+  const handleShowOnly = (e : string) => {
+    setFilters({...filters, showOnly : e})
+  }
+
   return (
-    <div className="w-full h-fit flex justify-center items-center gap-3">
-        <div id="genres">
-            <Select onValueChange={(e : string) => handleGenre(e)}>
-                <SelectTrigger className="min-w-[13em] text-white placeholder:text-white/50">
-                  <SelectValue className="font-bold text-white" placeholder="Genres"/>
-                </SelectTrigger>
-                <SelectContent>
-                  {genres.map((genre,idx) => {
-                    return <SelectItem 
-                    id={`${idx}`} 
-                    value={genre} 
-                    className="text-black font-medium"
-                    >
-                      {genre}
-                    </SelectItem>
-                  })}
-                </SelectContent>
-            </Select>
-        </div>
-        <div id="year">
-            <Select onValueChange={(e) => handleYear(e)}>
-                <SelectTrigger className="min-w-[13em] text-white placeholder:text-white/50">
-                  <SelectValue  placeholder="Year"/>
-                </SelectTrigger>
-                <SelectContent>
-                  {years.map((year,idx) => {
-                    return <SelectItem 
-                    id={`${idx}`} 
-                    value={year}
-                    className="text-black font-medium"
-                    >
-                      {year}
-                    </SelectItem>
-                  })}
-                </SelectContent>
-            </Select>
-        </div>
-        <div id="title">
-          <Input 
-          className="text-white"
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="w-full h-fit flex flex-col md:flex-row justify-center items-center gap-4 p-6 bg-zinc-700/30 rounded-2xl border border-slate-500/30 backdrop-blur-sm"
+    >
+
+      <motion.div id="genres"
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+        className="w-full md:w-auto"
+      >
+        <Select onValueChange={(e : string) => handleGenre(e)}>
+          <SelectTrigger className="min-w-[13em] text-white placeholder:text-white/50 bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 transition-all duration-300">
+            <SelectValue className="font-medium text-white" placeholder="Genres"/>
+          </SelectTrigger>
+          <SelectContent className="bg-zinc-700 border-2 border-white/30 rounded-xl">
+            {allGenres.map((genre,idx) => {
+              return <SelectItem 
+                key={`${idx}`} 
+                value={genre} 
+                className="text-white font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
+              >
+                {genre}
+              </SelectItem>
+            })
+            }
+          </SelectContent>
+        </Select>
+      </motion.div>
+
+      <motion.div id="year"
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+        className="w-full md:w-auto"
+      >
+        <Select onValueChange={(e) => handleYear(e)}>
+          <SelectTrigger className="min-w-[13em] text-white placeholder:text-white/50 bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 transition-all duration-300">
+            <SelectValue placeholder="Year"/>
+          </SelectTrigger>
+          <SelectContent className="bg-zinc-700 border-2 border-white/30 rounded-xl">
+            {years.map((year,idx) => {
+              return <SelectItem 
+                key={`${idx}`} 
+                value={year}
+                className="text-white font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
+              >
+                {year}
+              </SelectItem>
+            })}
+          </SelectContent>
+        </Select>
+      </motion.div>
+
+      <motion.div id="title"
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+        className="w-full md:w-auto"
+      >
+        <Input 
+          className="text-white bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 focus:border-white transition-all duration-300 placeholder:text-white/50"
           placeholder="Title includes..." 
           value={filters.title} 
-          onChange={(e) => handleTitle(e)}/>
-        </div>
-    </div>
+          onChange={(e) => handleTitle(e)}
+        />
+      </motion.div>
+      
+      <motion.div id="showOnly"
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+        className="w-full md:w-auto"
+      >
+        <Select onValueChange={(e) => handleShowOnly(e)}>
+          <SelectTrigger className="min-w-[13em] text-white placeholder:text-white/50 bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 transition-all duration-300">
+            <SelectValue placeholder="Show Only"/>
+          </SelectTrigger>
+          <SelectContent className="bg-zinc-700 border-2 border-white/30 rounded-xl">
+            {showOnly.map((s,idx) => {
+              return <SelectItem 
+                key={`${idx}`} 
+                value={s.toString()}
+                className="text-white font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
+              >
+                {s}
+              </SelectItem>
+            })}
+          </SelectContent>
+        </Select>
+      </motion.div>
+    </motion.div>
   )
 }

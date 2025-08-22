@@ -8,9 +8,10 @@ export type Movie = {
     runtime : number,
     title : string,
     imdbId : string,
+    image_url : string,
 }
 export type Movies = Movie[]
 
-const initialState : Movies = []
+const initialState : Omit<Movies, "image_url"> = []
 
 export {initialState};

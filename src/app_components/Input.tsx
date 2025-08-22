@@ -23,56 +23,90 @@ export default function Input() {
     }
 
     return (
-    <div className="w-full min-h-[3em] max-h-[15em] flex justify-center border border-white">
-        <div className="min-w-3/5 h-auto flex flex-col justify-center gap-3">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="w-full min-h-[4em] max-h-[16em] flex justify-center py-8"
+    >
+        <div className="min-w-[80%] max-w-4xl h-auto flex flex-col justify-center gap-6">
 
-            <div className="w-full mx-5 flex justify-center py-3 gap-10">
-
+            <div className="w-full flex justify-center py-4 gap-6 md:gap-10">
                 <motion.h2
-                whileTap={{scale : 1.2}}
-                initial={{backgroundColor : "transparent", color : "white"}}
-
-                animate={{backgroundColor : `${selected === "emotion" ? "white":"transparent"}`, 
-                color : `${selected === "emotion" ? "black":"white"}`}}
-                
-                transition={{delay : 0.2, ease : "backInOut"}}
-                onClick={() => handleSelection("emotion")}
-                className="text-white text-xl hover:cursor-pointer p-2 rounded-lg">
+                  initial={{backgroundColor : "transparent", color : "white", scale: 0.8, opacity: 0}}
+                  animate={{
+                    backgroundColor : selected === "emotion" ? "rgba(255,255,255,0.95)" : "transparent", 
+                    color : selected === "emotion" ? "rgb(24,24,27)" : "white",
+                    scale: selected === "emotion" ? 1.05 : 1,
+                    opacity: 1
+                  }}
+                  whileHover={{ scale: selected === "emotion" ? 1.05 : 1.02 }}
+                  transition={{duration : 0.3, ease : "easeInOut"}}
+                  onClick={() => handleSelection("emotion")}
+                  className={`text-white text-lg md:text-xl font-semibold hover:cursor-pointer p-3 rounded-xl border-2 border-white/60 px-6 transition-all duration-300 shadow-lg hover:shadow-xl ${
+                    selected === "emotion" 
+                      ? "shadow-white/20 border-white" 
+                      : "hover:border-white/80 hover:bg-white/10"
+                  }`}
+                >
                     Emotion
                 </motion.h2>
 
                 <motion.h2
-                whileTap={{scale : 1.2}}
-                initial={{backgroundColor : "transparent", color : "white"}}
-
-                animate={{backgroundColor : `${selected === "description" ? "white":"transparent"}`, 
-                color : `${selected === "description" ? "black":"white"}`}}
-
-                transition={{delay : 0.2, ease : "backInOut"}} 
-                onClick={() => handleSelection("description")}
-                className="text-white text-xl hover:cursor-pointer p-2 rounded-lg">
+                  initial={{backgroundColor : "transparent", color : "white", scale: 0.8, opacity: 0}}
+                  animate={{
+                    backgroundColor : selected === "description" ? "rgba(255,255,255,0.95)" : "transparent", 
+                    color : selected === "description" ? "rgb(24,24,27)" : "white",
+                    scale: selected === "description" ? 1.05 : 1,
+                    opacity: 1
+                  }}
+                  whileHover={{ scale: selected === "description" ? 1.05 : 1.02 }}
+                  transition={{duration : 0.3, ease : "easeInOut"}} 
+                  onClick={() => handleSelection("description")}
+                  className={`text-white text-lg md:text-xl font-semibold hover:cursor-pointer p-3 rounded-xl border-2 border-white/60 px-6 transition-all duration-300 shadow-lg hover:shadow-xl ${
+                    selected === "description" 
+                      ? "shadow-white/20 border-white" 
+                      : "hover:border-white/80 hover:bg-white/10"
+                  }`}
+                >
                     Description
                 </motion.h2>
             </div>
 
-            
-            <form action="" className="flex flex-row gap-5 justify-center w-full h-fit" onSubmit={handleSubmit}>
-                
-                <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                disabled={selected === ""}
-                placeholder={`${selected === "" ? "Choose an option from above" : "Enter"}`} 
-                className={`border border-white rounded-lg text-lg text-white w-full text px-5 py-2 ${selected === "" && "cursor-not-allowed"}`} />
+            <motion.form 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+              className="flex flex-col md:flex-row gap-4 justify-center w-full h-fit" 
+              onSubmit={handleSubmit}
+            >
+                <motion.input
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  disabled={selected === ""}
+                  placeholder={`${selected === "" ? "Choose an option from above" : selected === "emotion" ? "How are you feeling today?" : "Describe the movie plot..."}`} 
+                  className={`border-2 border-white/60 rounded-xl text-lg text-white w-full px-6 py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 ${
+                    selected === "" ? "cursor-not-allowed opacity-50" : "cursor-text"
+                  }`} 
+                />
 
-                <button 
-                type="submit"
-                className="text-white hover:font-bold hover:cursor-pointer hover:bg-zinc-400/50 rounded-xl px-2 text-ce">
-                    Find
-                </button>
-
-            </form>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={selected === "" || input.trim() === ""}
+                  type="submit"
+                  className={`text-white font-semibold rounded-xl px-8 py-4 border-2 border-white/60 transition-all duration-300 ${
+                    selected === "" || input.trim() === "" 
+                      ? "cursor-not-allowed opacity-50" 
+                      : "hover:bg-white hover:text-zinc-800 hover:border-white cursor-pointer hover:shadow-lg"
+                  }`}
+                >
+                    Search
+                </motion.button>
+            </motion.form>
         </div>
-    </div>
+    </motion.div>
   )
 }
