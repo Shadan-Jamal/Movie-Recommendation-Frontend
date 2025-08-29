@@ -18,7 +18,7 @@ export default function MovieCardSection() {
     genre: "", 
     year: "", 
     title : "",
-    showOnly : "40"
+    showOnly : "100"
   });
 
   const { text, textType } = useAppSelector((state) => state.input);
@@ -29,11 +29,13 @@ export default function MovieCardSection() {
   useEffect(() => {
 
     const getImages = async (movies : any) => {
-          const updatedMovies = await Promise.all(
-            movies.map(async (movie : any) => {
+      console.log(movies)
+      const updatedMovies = await Promise.all(
+              movies.map(async (movie : any) => {
+              console.log(config.omdb_api, movie.id)
               try{
-                if(movie.imdbId){
-                  const img_blob = await fetch(`http://img.omdbapi.com/?apikey=${config.omdb_api}&i=${movie.imdbId}`).then((res) => res.blob());
+                if(movie.id){
+                  const img_blob = await fetch(`http://img.omdbapi.com/?apikey=${config.omdb_api}&i=${movie.id}`).then((res) => res.blob());
                   const img_url = URL.createObjectURL(img_blob)
                   return {...movie, image_url : img_url}
                 }
@@ -61,13 +63,14 @@ export default function MovieCardSection() {
             }),
           });
           const data = await result.json();
+          console.log(data)
           //creating a new object with the image url of each movies
-          // const moviesWithImages = await getImages(data)
+          const moviesWithImages = await getImages(data)
+          console.log(moviesWithImages)
+          dispatch(createMovies(moviesWithImages)); //saving movies to redux store
+          setMoviesData(moviesWithImages); //saving movies to local state
 
-          dispatch(createMovies(data)); //saving movies to redux store
-          setMoviesData(data); //saving movies to local state
-
-          setFilters({genre : "", year : "", title : "", showOnly : "40"})
+          setFilters({genre : "", year : "", title : "", showOnly : "100"})
         }
         
       } catch (err) {
@@ -103,31 +106,17 @@ export default function MovieCardSection() {
     // Filter by year
     if (year && year !== "All") {
       let yearFilteredMovies: Movies = filteredMovies;
-      if (year === "Before 1990") {
-        const parsedYear = 1990;
-        yearFilteredMovies = yearFilteredMovies.filter((movie) => {
-          const releaseYear = parseInt(
-            movie.release_date.slice(0, movie.release_date.indexOf("-"))
-          );
-          return releaseYear <= parsedYear;
-        });
-      } 
-      else {
-        let range: string[] = [];
-        let start = parseInt(year.slice(0, 4));
-        let end = parseInt(year.slice(5, year.length));
-        while (start <= end) {
-          range.push(start.toString());
-          start += 1;
-        }
-        yearFilteredMovies = yearFilteredMovies.filter((movie) => {
-          const releaseYear = movie.release_date.slice(
-            0,
-            movie.release_date.indexOf("-")
-          );
-          return range.includes(releaseYear);
-        });
+      let range: string[] = [];
+      let start = parseInt(year.slice(0, 4));
+      let end = parseInt(year.slice(5, year.length));
+      while (start <= end) {
+        range.push(start.toString());
+        start += 1;
       }
+      yearFilteredMovies = yearFilteredMovies.filter((movie) => {
+        const releaseYear = movie.year
+        return range.includes(releaseYear);
+        });
       filteredMovies = yearFilteredMovies;
     }
 
@@ -139,7 +128,7 @@ export default function MovieCardSection() {
     }
 
     //Filter by showOnly
-    if(showOnly && showOnly !== "40"){
+    if(showOnly && showOnly !== "100"){
       filteredMovies = movies.slice(0, parseInt(showOnly))
     }
 
@@ -166,7 +155,7 @@ export default function MovieCardSection() {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
-        className="w-full max-w-6xl"
+        className="w-full max-w-6xl flex justify-center"
       >
         {text.length > 0 && (
           <FilterOptions 

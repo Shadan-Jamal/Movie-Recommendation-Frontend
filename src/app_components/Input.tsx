@@ -79,18 +79,28 @@ export default function Input() {
               transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
               className="flex flex-col md:flex-row gap-4 justify-center w-full h-fit" 
               onSubmit={handleSubmit}
-            >
-                <motion.input
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  disabled={selected === ""}
-                  placeholder={`${selected === "" ? "Choose an option from above" : selected === "emotion" ? "How are you feeling today?" : "Describe the movie plot..."}`} 
-                  className={`border-2 border-white/60 rounded-xl text-lg text-white w-full px-6 py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 ${
-                    selected === "" ? "cursor-not-allowed opacity-50" : "cursor-text"
-                  }`} 
-                />
+            >   
+                <div className="relative w-full">
+
+                    <motion.input
+                      whileFocus={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      disabled={selected === ""}
+                      placeholder={`${selected === "" ? "Choose an option from above" : selected === "emotion" ? "How are you feeling today?" : "Describe the movie plot..."}`} 
+                      className={`border-2 border-white/60 rounded-xl text-lg text-white w-full px-6 py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 ${
+                        selected === "" ? "cursor-not-allowed opacity-50" : "cursor-text"
+                      }`} 
+                      />
+                    
+                    {selected.length > 0 && <motion.div 
+                    animate={{
+                      scale : [1.01,1.03,1.01], 
+                      transition : {repeat : Infinity, repeatType : "loop", duration : 3, type : "tween", ease : "easeInOut"}}}
+                    className="w-full h-full -z-20 absolute inset-0 rounded-xl border-2 border-white/50 px-20"
+                    />}
+                </div>
 
                 <motion.button 
                   whileHover={{ scale: 1.05 }}

@@ -33,21 +33,20 @@ const allGenres: string[] = [
 
 const years : string[] = [
   "All",
-  "2016-2017",
+  "2021 - 2024",
+  "2016-2020",
   "2011-2015",
   "2001-2010",
   "1996-2000",
   "1990-1995",
-  "Before 1990"
 ]
 
 const showOnly : string[] = [
-  "5",
   "10",
-  "15",
-  "25",
-  "35",
-  "40"
+  "30",
+  "50",
+  "75",
+  "100",
 ]
 
 type FilterOptionsProps = {
@@ -88,7 +87,7 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="w-full h-fit flex flex-col md:flex-row justify-center items-center gap-4 p-6 bg-zinc-700/30 rounded-2xl border border-slate-500/30 backdrop-blur-sm"
+      className="min-w-[15em] max-w-[60em] lg:w-full h-fit flex flex-col md:flex-row justify-center items-center gap-4 p-6 bg-zinc-700/30 rounded-2xl border border-slate-500/30 backdrop-blur-sm"
     >
 
       <motion.div id="genres"
