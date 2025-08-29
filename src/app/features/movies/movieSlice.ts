@@ -6,7 +6,7 @@ const movieSlice = createSlice({
     name : "movie",
     initialState : initialState,
     reducers : {
-        createMovies : (state, action) => {
+        createMovies : (_state, action) => {
             const movies = action.payload
             return movies
         },
