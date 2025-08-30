@@ -29,7 +29,6 @@ export default function MovieCardSection() {
   useEffect(() => {
 
     const getImages = async (movies : any) => {
-      console.log(movies)
       const updatedMovies = await Promise.all(
               movies.map(async (movie : any) => {
               console.log(config.omdb_api, movie.id)
@@ -141,7 +140,6 @@ export default function MovieCardSection() {
       setNoMoviesFound(false);
     }
   }, [filters]);
-
   return (
     <motion.div 
       initial={{ opacity: 0 }}
