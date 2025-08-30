@@ -34,7 +34,7 @@ export default function MovieCardSection() {
               console.log(config.omdb_api, movie.id)
               try{
                 if(movie.id){
-                  const img_blob = await fetch(`http://img.omdbapi.com/?apikey=${config.omdb_api}&i=${movie.id}`).then((res) => res.blob());
+                  const img_blob = await fetch(`https://img.omdbapi.com/?apikey=${config.omdb_api}&i=${movie.id}`).then((res) => res.blob());
                   const img_url = URL.createObjectURL(img_blob)
                   return {...movie, image_url : img_url}
                 }
@@ -62,7 +62,6 @@ export default function MovieCardSection() {
             }),
           });
           const data = await result.json();
-          console.log(data)
           //creating a new object with the image url of each movies
           const moviesWithImages = await getImages(data)
           console.log(moviesWithImages)
