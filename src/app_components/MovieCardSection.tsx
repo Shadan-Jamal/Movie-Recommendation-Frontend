@@ -31,7 +31,6 @@ export default function MovieCardSection() {
     const getImages = async (movies : any) => {
       const updatedMovies = await Promise.all(
               movies.map(async (movie : any) => {
-              console.log(config.omdb_api, movie.id)
               try{
                 if(movie.id){
                   const img_blob = await fetch(`https://img.omdbapi.com/?apikey=${config.omdb_api}&i=${movie.id}`).then((res) => res.blob());
@@ -64,7 +63,6 @@ export default function MovieCardSection() {
           const data = await result.json();
           //creating a new object with the image url of each movies
           const moviesWithImages = await getImages(data)
-          console.log(moviesWithImages)
           dispatch(createMovies(moviesWithImages)); //saving movies to redux store
           setMoviesData(moviesWithImages); //saving movies to local state
 
@@ -195,10 +193,10 @@ export default function MovieCardSection() {
                 <div className="w-24 h-24 bg-zinc-600/30 rounded-full flex items-center justify-center mb-6 border-2 border-zinc-500/30">
                   <span className="text-4xl">🔍</span>
                 </div>
-                <h1 className="font-bold text-white text-3xl mb-3">
+                <h1 className="font-bold text-white text-xl md:text-3xl mb-3">
                   No Movies Found
                 </h1>
-                <p className="text-zinc-400 text-lg max-w-md">
+                <p className="text-zinc-400 text-sm md:text-lg max-w-md">
                   Try adjusting your filters or search criteria to find more movies.
                 </p>
               </motion.div>

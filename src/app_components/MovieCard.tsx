@@ -1,5 +1,6 @@
 import type { Movie } from "@/types/movies_types"
 import {motion} from "motion/react"
+import { allGenres } from "./FilterOptions"
 
 export default function MovieCard(props : Movie & {idx? : number | undefined}) {
   const {idx , ...movie} = props
@@ -9,15 +10,13 @@ export default function MovieCard(props : Movie & {idx? : number | undefined}) {
     }
   }
 
-  console.log(movie)
   return (
     <motion.div 
       whileHover={{ 
-        scale: 1.05, 
+        scale: 1.02, 
         boxShadow: "0px 8px 25px rgba(255,255,255,0.15)",
-        y: -8,
         transition : {
-          duration : 0.01
+          duration : 0.01,
         }
       }}
       whileTap={{ scale: 0.98 }}
@@ -26,29 +25,46 @@ export default function MovieCard(props : Movie & {idx? : number | undefined}) {
         scale: 1, 
         opacity: 1, 
         y: 0,
-        transition: { delay: calculateDelay(idx), duration: 0.1, ease: "easeOut" }
+        transition: { 
+          delay: calculateDelay(idx), duration: 0.1, 
+          ease: "easeOut" 
+        }
       }}
-      className="group border-2 border-slate-500/60 max-w-[22em] min-h-[22em] max-h-[32em] bg-gradient-to-br from-zinc-700/90 to-zinc-800/90 rounded-2xl py-4 px-4 flex flex-col justify-between items-center gap-3 backdrop-blur-sm hover:border-slate-400/80 transition-all duration-300 shadow-lg hover:shadow-xl"
+      className="border-2 border-slate-500/60 max-w-[22em] min-h-[30em] max-h-[35em] bg-gradient-to-br from-zinc-700/90 to-zinc-800/90 rounded-2xl py-4 px-4 flex flex-col justify-between items-center gap-3 backdrop-blur-sm hover:border-slate-400/80 transition-all duration-300 shadow-lg hover:shadow-xl"
     >
-      <div className="w-full h-fit px-3 flex flex-col items-center justify-center text-center">
+      <div className="w-full px-3 flex flex-col items-center justify-center text-center">
         <motion.h1 
           whileHover={{ scale: 1.02 }}
           className="font-bold text-white text-center text-wrap text-xl capitalize leading-tight mb-2 group-hover:text-zinc-200 transition-colors duration-300 cursor-default"
         >
           {movie.title}
         </motion.h1>
-        <motion.span 
-          whileHover={{ scale: 1.05 }}
-          className="font-semibold text-zinc-300 text-lg hover:bg-zinc-600/50 px-3 py-1 rounded-full border border-zinc-500/50 cursor-default"
+        <div
+        className="flex justify-center items-center gap-5"
         >
-          ({movie.year})
-        </motion.span>
+          <motion.span 
+            whileHover={{ scale: 1.05 }}
+            className="font-semibold text-zinc-300 text-lg hover:bg-zinc-600/50 px-3 py-1 rounded-full border border-zinc-500/50 cursor-default"
+            >
+            ({movie.year})
+          </motion.span>
+          <span
+          className={`font-black rounded-md px-2 py-1 text-sm
+            ${movie.mpa === "G" && "text-white bg-white/20"}
+            ${movie.mpa === "PG" && "text-green-400 bg-green-400/20"}
+            ${movie.mpa === "PG-13" && "text-yellow-500 bg-yellow-500/20"}
+            ${movie.mpa === "R" && "text-red-500 bg-red-500/20"}
+            `}
+            >{movie.mpa}</span>
+          </div>
       </div>
       
       <div className="w-full flex justify-between items-center px-4 py-3 border-b border-slate-400/30 rounded-b-lg bg-zinc-600/20">
         <div className="w-full flex justify-start items-center max-w-[70%] gap-2 text-white text-xs">
           <h4 className="text-xs italic text-zinc-200 leading-relaxed">
-            [{movie.genres.length > 0 ? movie.genres.join(", ") : "No genres available"}]  
+            [{movie.genres.length > 0 ? 
+            movie.genres.filter((genre) => allGenres.includes(genre)).join(", ") : 
+            "No genres available"}]  
           </h4>
         </div>
         <div className="bg-zinc-600/50 px-2 py-1 rounded-sm border border-zinc-500/50">
@@ -58,10 +74,10 @@ export default function MovieCard(props : Movie & {idx? : number | undefined}) {
         </div>
       </div>
 
-      <div className="h-[150%] rounded-lg overflow-hidden flex justify-center items-center my-4 bg-gradient-to-br from-zinc-600/30 to-zinc-700/30 border border-zinc-500/30">
+      <div className="min-h-[15em] min-w-[10em] max-w-[20em] rounded-lg overflow-hidden flex justify-center items-center my-4 bg-gradient-to-br from-zinc-600/30 to-zinc-700/30 border border-zinc-500/30">
         {movie.image_url.length > 0 ? 
           <img 
-            className="rounded-lg w-full h-full object-cover"
+            className="rounded-lg w-full object-contain"
             src={movie.image_url} 
             alt="Image not available" /> 
           : <h1 className="text-white text-lg text-center">Image not available</h1>

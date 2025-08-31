@@ -7,5 +7,4 @@ interface Config {
    server_url,
    omdb_api : import.meta.env.VITE_OMDB_API,
   };
-  
   export default config;

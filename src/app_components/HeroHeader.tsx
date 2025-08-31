@@ -26,7 +26,7 @@ export default function HeroHeader() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
-                className="text-white/90 text-lg md:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto"
+                className="text-white/90 text-md md:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto"
               >
                 Lookup your favorite movies by either describing how you're feeling right now or describing the plot of the movie you're looking for.
               </motion.p>

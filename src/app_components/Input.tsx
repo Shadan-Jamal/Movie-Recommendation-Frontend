@@ -43,8 +43,8 @@ export default function Input() {
                   whileHover={{ scale: selected === "emotion" ? 1.05 : 1.02 }}
                   transition={{duration : 0.3, ease : "easeInOut"}}
                   onClick={() => handleSelection("emotion")}
-                  className={`text-white text-lg md:text-xl font-semibold hover:cursor-pointer p-3 rounded-xl border-2 border-white/60 px-6 transition-all duration-300 shadow-lg hover:shadow-xl ${
-                    selected === "emotion" 
+                  className={`text-white text-md md:text-xl font-semibold hover:cursor-pointer px-4 py-2 md:px-6 md:py-4 rounded-xl border-2 border-white/60 transition-all duration-300 shadow-lg hover:shadow-xl 
+                    ${selected === "emotion" 
                       ? "shadow-white/20 border-white" 
                       : "hover:border-white/80 hover:bg-white/10"
                   }`}
@@ -63,7 +63,7 @@ export default function Input() {
                   whileHover={{ scale: selected === "description" ? 1.05 : 1.02 }}
                   transition={{duration : 0.3, ease : "easeInOut"}} 
                   onClick={() => handleSelection("description")}
-                  className={`text-white text-lg md:text-xl font-semibold hover:cursor-pointer p-3 rounded-xl border-2 border-white/60 px-6 transition-all duration-300 shadow-lg hover:shadow-xl ${
+                  className={`text-white text-md md:text-xl font-semibold hover:cursor-pointer px-4 py-2 md:px-6 md:py-4 rounded-xl border-2 border-white/60 transition-all duration-300 shadow-lg hover:shadow-xl ${
                     selected === "description" 
                       ? "shadow-white/20 border-white" 
                       : "hover:border-white/80 hover:bg-white/10"
@@ -89,9 +89,10 @@ export default function Input() {
                       onChange={(e) => setInput(e.target.value)}
                       disabled={selected === ""}
                       placeholder={`${selected === "" ? "Choose an option from above" : selected === "emotion" ? "How are you feeling today?" : "Describe the movie plot..."}`} 
-                      className={`border-2 border-white/60 rounded-xl text-lg text-white w-full px-6 py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 ${
-                        selected === "" ? "cursor-not-allowed opacity-50" : "cursor-text"
-                      }`} 
+
+                      className={`border-2 border-white/60 rounded-xl text-md md:text-lg text-white w-full px-4 py-2 md:px-6 md:py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 placeholder:text-sm md:placeholder:text-lg
+                        ${ selected === "" ? "cursor-not-allowed opacity-50" : "cursor-text"}`} 
+                      
                       />
                     
                     {selected.length > 0 && <motion.div 
@@ -107,7 +108,7 @@ export default function Input() {
                   whileTap={{ scale: 0.95 }}
                   disabled={selected === "" || input.trim() === ""}
                   type="submit"
-                  className={`text-white font-semibold rounded-xl px-8 py-4 border-2 border-white/60 transition-all duration-300 ${
+                  className={`text-white font-semibold rounded-xl px-4 py-2 md:px-8 md:py-4 border-2 border-white/60 transition-all duration-300 ${
                     selected === "" || input.trim() === "" 
                       ? "cursor-not-allowed opacity-50" 
                       : "hover:bg-white hover:text-zinc-800 hover:border-white cursor-pointer hover:shadow-lg"
