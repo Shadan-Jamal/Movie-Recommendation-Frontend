@@ -2,7 +2,6 @@ import { motion } from "motion/react"
 import { useAppDispatch } from "../app/hooks";
 import { changeText,changeTextType } from "../app/features/inputs/inputSlice";
 import { useState } from "react";
-import InputGuide from "./Menu/InputGuide";
 
 export default function Input() {
     const[input, setInput] = useState("");
