@@ -7,6 +7,7 @@ import FilterOptions from "./FilterOptions";
 import type { Movies } from "@/types/movies_types";
 import Loading from "./Loading";
 import {motion} from "motion/react"
+import { toast } from "sonner";
 
 export default function MovieCardSection() {
   const [moviesData, setMoviesData] = useState<Movies>([]);
@@ -47,10 +48,12 @@ export default function MovieCardSection() {
     }
 
     const fetchMovies = async () => {
+      if(!text.trim()){
+        toast.info("Input cannot be empty")
+        return
+      }
       try {
-        if (text) {
           setFetching(true);
-
           const result = await fetch(`${config.server_url}${textType}`, {
             method: "POST",
             headers: {
@@ -61,17 +64,19 @@ export default function MovieCardSection() {
             }),
           });
           const data = await result.json();
+          console.log(data)
           //creating a new object with the image url of each movies
           const moviesWithImages = await getImages(data)
           dispatch(createMovies(moviesWithImages)); //saving movies to redux store
           setMoviesData(moviesWithImages); //saving movies to local state
-
+  
           setFilters({genre : "", year : "", title : "", showOnly : "100"})
         }
-        
-      } catch (err) {
-        console.error(err);
-      } finally {
+      catch (err: any) {
+        console.log(err);
+        toast.error("Too many requests. Wait for a while...")
+      }
+      finally {
         setFetching(false);
       }
     };
@@ -137,6 +142,7 @@ export default function MovieCardSection() {
       setNoMoviesFound(false);
     }
   }, [filters]);
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -164,7 +170,7 @@ export default function MovieCardSection() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
-        className="text-4xl md:text-5xl text-white font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text"
+        className="text-2xl sm:text-4xl md:text-5xl text-white font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text"
       >
         Movies
       </motion.h1>
@@ -177,7 +183,7 @@ export default function MovieCardSection() {
       >
         {!fetching ? (
           !noMoviesFound ? (
-            <div className="grid place-content-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="grid justify-items-center sm:place-content-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {moviesData.map((movie, idx) => {
                 return <MovieCard key={idx} {...movie} idx={idx} />;
               })}

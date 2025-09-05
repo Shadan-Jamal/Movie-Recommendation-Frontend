@@ -97,14 +97,14 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
         >
           <Select onValueChange={(e : string) => handleGenre(e)}>
             <SelectTrigger className="w-full md:min-w-[15em] text-white placeholder:text-white/50 bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 transition-all duration-300">
-              <SelectValue className="font-medium text-white" placeholder="Genres"/>
+              <SelectValue className="font-medium text-white placeholder:text-base" placeholder="Genres"/>
             </SelectTrigger>
-            <SelectContent className="bg-zinc-700 border-2 border-white/30 rounded-xl">
+            <SelectContent className="bg-zinc-700 max-h-[14em] md:max-h-[30em] border-2 border-white/30 rounded-xl">
               {allGenres.map((genre,idx) => {
                 return <SelectItem 
                   key={`${idx}`} 
                   value={genre} 
-                  className="text-white font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
+                  className="text-white text-xs font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
                 >
                   {genre}
                 </SelectItem>
@@ -128,7 +128,7 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
                 return <SelectItem 
                   key={`${idx}`} 
                   value={year}
-                  className="text-white font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
+                  className="text-white text-xs font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
                 >
                   {year}
                 </SelectItem>
@@ -143,7 +143,7 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
           className="w-full md:w-auto"
         >
           <Select onValueChange={(e) => handleShowOnly(e)}>
-            <SelectTrigger className="md:min-w-[15em] text-white placeholder:text-white/50 bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 transition-all duration-300">
+            <SelectTrigger className="w-full md:min-w-[15em] text-white placeholder:text-white/50 bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 transition-all duration-300">
               <SelectValue placeholder="Show Only"/>
             </SelectTrigger>
             <SelectContent className="bg-zinc-700 border-2 border-white/30 rounded-xl">
@@ -151,7 +151,7 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
                 return <SelectItem 
                   key={`${idx}`} 
                   value={s.toString()}
-                  className="text-white font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
+                  className="text-white text-xs font-medium hover:bg-zinc-600 focus:bg-zinc-600 cursor-pointer"
                 >
                   {s}
                 </SelectItem>
@@ -162,14 +162,13 @@ export default function FilterOptions({setFilters, filters} : FilterOptionsProps
       </div>
       
       
-
       <motion.div id="title"
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.2 }}
         className="w-full md:w-auto col-span-3"
       >
         <Input 
-          className="text-white bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 focus:border-white transition-all duration-300 placeholder:text-white/50 placeholder:text-sm text-sm"
+          className="text-white bg-zinc-700/50 border-2 border-white/30 rounded-xl hover:border-white/60 focus:border-white transition-all duration-300 placeholder:text-white/50 text-xs placeholder:text-xs md:placeholder:text-sm md:text-sm"
           placeholder="Title includes..." 
           value={filters.title} 
           onChange={(e) => handleTitle(e)}

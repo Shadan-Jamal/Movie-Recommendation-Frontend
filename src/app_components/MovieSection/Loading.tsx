@@ -12,7 +12,7 @@ const Loading = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="text-white text-xl font-medium mb-4"
+        className="text-white text-sm text-center sm:text-xl font-medium mb-4"
       >
         Finding your perfect movies...
       </motion.div>
@@ -71,7 +71,7 @@ const Loading = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="text-white/60 text-sm"
+        className="text-white/60 text-xs"
       >
         This may take a few moments
       </motion.div>

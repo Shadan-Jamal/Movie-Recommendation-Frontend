@@ -2,10 +2,12 @@ import { motion } from "motion/react"
 import { useAppDispatch } from "../app/hooks";
 import { changeText,changeTextType } from "../app/features/inputs/inputSlice";
 import { useState } from "react";
+import InputGuide from "./Menu/InputGuide";
 
 export default function Input() {
     const[input, setInput] = useState("");
     const[selected, setSelected] = useState("")
+    
 
     const dispatch = useAppDispatch();
 
@@ -17,6 +19,8 @@ export default function Input() {
         }
     };
 
+    
+
     const handleSelection = (text : string) => {
         setSelected(text)
         setInput("")
@@ -27,7 +31,7 @@ export default function Input() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="w-full min-h-[4em] max-h-[16em] flex justify-center py-8"
+      className="w-full min-h-[4em] max-h-[16em] flex justify-center py-2 md:py-8"
     >
         <div className="min-w-[80%] max-w-4xl h-auto flex flex-col justify-center gap-6">
 
@@ -63,7 +67,7 @@ export default function Input() {
                   whileHover={{ scale: selected === "description" ? 1.05 : 1.02 }}
                   transition={{duration : 0.3, ease : "easeInOut"}} 
                   onClick={() => handleSelection("description")}
-                  className={`text-white text-md md:text-xl font-semibold hover:cursor-pointer px-4 py-2 md:px-6 md:py-4 rounded-xl border-2 border-white/60 transition-all duration-300 shadow-lg hover:shadow-xl ${
+                  className={`text-white text-sm md:text-xl font-semibold hover:cursor-pointer px-4 py-2 md:px-6 md:py-4 rounded-xl border-2 border-white/60 transition-all duration-300 shadow-lg hover:shadow-xl ${
                     selected === "description" 
                       ? "shadow-white/20 border-white" 
                       : "hover:border-white/80 hover:bg-white/10"
@@ -77,7 +81,7 @@ export default function Input() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-              className="flex flex-col md:flex-row gap-4 justify-center w-full h-fit" 
+              className="flex flex-col sm:flex-row gap-4 justify-center w-full h-fit" 
               onSubmit={handleSubmit}
             >   
                 <div className="relative w-full">
@@ -90,7 +94,7 @@ export default function Input() {
                       disabled={selected === ""}
                       placeholder={`${selected === "" ? "Choose an option from above" : selected === "emotion" ? "How are you feeling today?" : "Describe the movie plot..."}`} 
 
-                      className={`border-2 border-white/60 rounded-xl text-md md:text-lg text-white w-full px-4 py-2 md:px-6 md:py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 placeholder:text-sm md:placeholder:text-lg
+                      className={`border-2 border-white/60 rounded-xl text-sm md:text-lg text-white w-full px-4 py-2 md:px-6 md:py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 placeholder:text-sm md:placeholder:text-lg
                         ${ selected === "" ? "cursor-not-allowed opacity-50" : "cursor-text"}`} 
                       
                       />
@@ -108,7 +112,7 @@ export default function Input() {
                   whileTap={{ scale: 0.95 }}
                   disabled={selected === "" || input.trim() === ""}
                   type="submit"
-                  className={`text-white font-semibold rounded-xl px-4 py-2 md:px-8 md:py-4 border-2 border-white/60 transition-all duration-300 ${
+                  className={`text-white font-semibold rounded-xl text-sm sm:text-lg px-4 py-2 md:px-8 md:py-4 border-2 border-white/60 transition-all duration-300 ${
                     selected === "" || input.trim() === "" 
                       ? "cursor-not-allowed opacity-50" 
                       : "hover:bg-white hover:text-zinc-800 hover:border-white cursor-pointer hover:shadow-lg"
