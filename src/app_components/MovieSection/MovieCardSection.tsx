@@ -129,7 +129,7 @@ export default function MovieCardSection() {
     }
 
     //Filter by showOnly
-    if(showOnly && showOnly !== "All"){
+    if(showOnly && showOnly !== "100"){
       filteredMovies = movies.slice(0, parseInt(showOnly))
     }
 
@@ -143,7 +143,6 @@ export default function MovieCardSection() {
     }
   }, [filters]);
 
-  console.log(moviesData)
   return (
     <motion.div 
       initial={{ opacity: 0 }}
