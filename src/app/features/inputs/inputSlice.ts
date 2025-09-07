@@ -8,7 +8,7 @@ type InputType = {
 
 const initialState : InputType = {
     text : "",
-    textType : "Choose an option from above"
+    textType : ""
 }
 
 export const inputSlice = createSlice({

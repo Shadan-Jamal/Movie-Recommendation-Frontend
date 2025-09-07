@@ -143,6 +143,7 @@ export default function MovieCardSection() {
     }
   }, [filters]);
 
+  console.log(moviesData)
   return (
     <motion.div 
       initial={{ opacity: 0 }}
