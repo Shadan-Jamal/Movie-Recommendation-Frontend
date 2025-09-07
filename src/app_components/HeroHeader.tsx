@@ -29,7 +29,7 @@ export default function HeroHeader() {
                 transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
                 className="text-justify text-white/90 text-[12px] sm:text-sm md:text-xl lg:text-2xl leading-relaxed max-w-5xl"
               >
-                Lookup your favorite movies by either describing how you're feeling right now or describing the plot of the movie you're looking for.
+                Lookup your favorite movies by describing the plot of the movie you're looking for.
               </motion.p>
               <motion.p 
                 initial={{ y: 20, opacity: 0 }}

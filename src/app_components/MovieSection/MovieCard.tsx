@@ -32,7 +32,7 @@ export default function MovieCard(props : Movie & {idx? : number | undefined}) {
       }}
       className="border-2 border-slate-500/60 w-[18em] h-auto sm:max-w-[22em] sm:min-h-[30em] md:max-h-[35em] bg-gradient-to-br from-zinc-700/90 to-zinc-800/90 rounded-2xl py-4 px-2 sm:px-4 flex flex-col justify-between items-center gap-3 backdrop-blur-sm hover:border-slate-400/80 transition-all duration-300 shadow-lg hover:shadow-xl"
     >
-      <div className="w-full px-3 flex flex-col items-center justify-center text-center">
+      <div className="w-full px-1 flex flex-col items-center justify-center text-center">
         <motion.h1 
           whileHover={{ scale: 1.02 }}
           className="font-bold text-white text-center md:text-center text-wrap text-sm md:text-xl capitalize leading-tight mb-2 group-hover:text-zinc-200 transition-colors duration-300 cursor-default"
@@ -49,7 +49,7 @@ export default function MovieCard(props : Movie & {idx? : number | undefined}) {
             ({movie.year})
           </motion.span>
           <span
-          className={`font-black rounded-md px-2 py-1 text-[11px] sm:text-sm
+          className={`font-black rounded-md px-2 py-1 text-[11px] sm:text-sm text-gray-200 bg-gray-200/20
             ${movie.mpa === "G" && "text-white bg-white/20"}
             ${movie.mpa === "PG" && "text-green-400 bg-green-400/20"}
             ${movie.mpa === "PG-13" && "text-yellow-500 bg-yellow-500/20"}

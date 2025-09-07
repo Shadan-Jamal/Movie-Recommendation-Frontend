@@ -42,11 +42,12 @@ const years : string[] = [
 ]
 
 const showOnly : string[] = [
+  "All", 
   "10",
   "30",
   "50",
   "75",
-  "100",
+  "90",
 ]
 
 type FilterOptionsProps = {

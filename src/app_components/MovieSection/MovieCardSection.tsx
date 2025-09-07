@@ -129,7 +129,7 @@ export default function MovieCardSection() {
     }
 
     //Filter by showOnly
-    if(showOnly && showOnly !== "100"){
+    if(showOnly && showOnly !== "All"){
       filteredMovies = movies.slice(0, parseInt(showOnly))
     }
 

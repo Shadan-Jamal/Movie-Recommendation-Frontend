@@ -57,7 +57,7 @@ const AddMovie = ({ isOpen, onClose }: AddMovieProps) => {
 
     return (
         <AlertDialog open={isOpen} onOpenChange={onClose}>
-            <AlertDialogContent className="bg-zinc-800 border-zinc-600 max-w-md">
+            <AlertDialogContent className="bg-zinc-800 border-zinc-600 max-w-md font-mono">
                 <AlertDialogTitle className="text-white text-xl font-bold mb-4">
                     🎬 Add Movie
                 </AlertDialogTitle>

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function Input() {
     const[input, setInput] = useState("");
-    const[selected, setSelected] = useState("")
+    const[selected, setSelected] = useState("description")
     
 
     const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ export default function Input() {
         <div className="min-w-[80%] max-w-4xl h-auto flex flex-col justify-center gap-6">
 
             <div className="w-full flex justify-center py-4 gap-6 md:gap-10">
-                <motion.h2
+                {/* <motion.h2
                   initial={{backgroundColor : "transparent", color : "white", scale: 0.8, opacity: 0}}
                   animate={{
                     backgroundColor : selected === "emotion" ? "rgba(255,255,255,0.95)" : "transparent", 
@@ -53,8 +53,8 @@ export default function Input() {
                   }`}
                 >
                     Emotion
-                </motion.h2>
-
+                </motion.h2> */}
+{/* 
                 <motion.h2
                   initial={{backgroundColor : "transparent", color : "white", scale: 0.8, opacity: 0}}
                   animate={{
@@ -73,7 +73,7 @@ export default function Input() {
                   }`}
                 >
                     Description
-                </motion.h2>
+                </motion.h2> */}
             </div>
 
             <motion.form 
@@ -90,7 +90,7 @@ export default function Input() {
                       transition={{ duration: 0.2 }}
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
-                      disabled={selected === ""}
+                      // disabled={selected === ""}
                       placeholder={`${selected === "" ? "Choose an option from above" : selected === "emotion" ? "How are you feeling today?" : "Describe the movie plot..."}`} 
 
                       className={`border-2 border-white/60 rounded-xl text-sm md:text-lg text-white w-full px-4 py-2 md:px-6 md:py-4 bg-zinc-700/50 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:border-white focus:bg-zinc-700/70 transition-all duration-300 placeholder:text-sm md:placeholder:text-lg
